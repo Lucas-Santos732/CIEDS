@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: const BarraTelaPrincipal(), // AppBar personalizado
+        appBar: const BarraTelaPrincipal(),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -19,6 +19,41 @@ class MyApp extends StatelessWidget {
               const TextoHorario(),
               const SizedBox(height: 25),
               EventCard(),
+            ],
+          ),
+        ),
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(color: Colors.blue),
+                child: Text('Drawer Header'),
+              ),
+              ListTile(
+                title: const Text('Home'),
+                onTap: () {
+                  // Update the state of the app
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Business'),
+                onTap: () {
+                  // Update the state of the app
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('School'),
+                onTap: () {
+                  // Update the state of the app
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
             ],
           ),
         ),
@@ -34,6 +69,7 @@ class BarraTelaPrincipal extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false, // Remove o ícone de menu padrão
       toolbarHeight: 65, // Altura do AppBar
       title: const SizedBox(
         width: 100,
@@ -45,13 +81,22 @@ class BarraTelaPrincipal extends StatelessWidget
         ),
       ),
       actions: <Widget>[
-        SizedBox(
-          width: 75,
-          child: IconButton(
-            icon: const Icon(Icons.menu, size: 35, color: Color(0xffFCAF17)),
-            onPressed: () {},
-            alignment: Alignment.center,
-          ),
+        Builder(
+          builder:
+              (context) => SizedBox(
+                width: 75,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: Color(0xffFCAF17),
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  alignment: Alignment.center,
+                ),
+              ),
         ),
       ],
     );
@@ -90,36 +135,88 @@ class TextoHorario extends StatelessWidget {
 class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(16.0),
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
+    return Center(
+      child: Container(
+        width: 370,
+        decoration: BoxDecoration(
+          color: Color(0xFFFFB433),
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: Colors.black),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              'TI',
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          children: [
+            // Header com TI e Sala 1
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      '        TI         ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Sala 1         ',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 8.0),
-            Text(
-              'Instrutor:',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            // Conteúdo do meio
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Instrutor:',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                  Text('lucas de souza dos santos'),
+                  SizedBox(height: 8),
+                  Text(
+                    'Local:',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                  Text(
+                    'Coletivo Aprendiz São Paulo - Rua José Bonifácio, 250 - 6º andar - Centro, São Paulo - SP',
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
             ),
-            Text('Lucas de Souza dos Santos', style: TextStyle(fontSize: 16.0)),
-            SizedBox(height: 8.0),
-            Text(
-              'Local:',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            // Rodapé preto com data e hora
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(0)),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    ' Data: 15/03/2025',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  Text(
+                    'Inicio: 08:00   ',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                ],
+              ),
             ),
-            Text(
-              'Coletivo Aprendiz São Paulo - Rua José Bonifácio, 250 - 6º andar - Centro, São Paulo - SP',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 8.0),
-            Text('Data: 15/03/2025', style: TextStyle(fontSize: 16.0)),
-            Text('Começa: 08:00', style: TextStyle(fontSize: 16.0)),
           ],
         ),
       ),
