@@ -18,7 +18,36 @@ class MyApp extends StatelessWidget {
               const DivideTela(),
               const TextoHorario(),
               const SizedBox(height: 25),
-              EventCard(),
+              EventCard(
+                TemaAula: "Administração",
+                sala: "1",
+                instrutor: "João Guilherme",
+                local:
+                    "R. José Bonifácio, 250 - 6º andar - Centro Histórico de São Paulo, São Paulo - SP, 01003-001",
+                data: "25/03/2025",
+                hora: "08:00",
+              ),
+              SizedBox(height: 25),
+              EventCard(
+                TemaAula: "TI",
+                sala: "2",
+                instrutor: "Anne",
+                local:
+                    "R. Conselheiro Saraíva, 28 - 8º andar - Centro, Rio de Janeiro - RJ, 20091-030",
+                data: "27/03/2025",
+                hora: "10:00",
+              ),
+              SizedBox(height: 25),
+              EventCard(
+                TemaAula: "Logística",
+                sala: "3",
+                instrutor: "Lucas",
+                local:
+                    "R. Conselheiro Saraíva, 28 - 8º andar - Centro, Rio de Janeiro - RJ, 20091-030",
+                data: "27/03/2025",
+                hora: "08:00",
+              ),
+              SizedBox(height: 25),
             ],
           ),
         ),
@@ -133,6 +162,23 @@ class TextoHorario extends StatelessWidget {
 }
 
 class EventCard extends StatelessWidget {
+  final String TemaAula;
+  final String sala;
+  final String instrutor;
+  final String local;
+  final String data;
+  final String hora;
+
+  const EventCard({
+    Key? key,
+    required this.TemaAula,
+    required this.sala,
+    required this.instrutor,
+    required this.local,
+    required this.data,
+    required this.hora,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -159,7 +205,7 @@ class EventCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      '        TI         ',
+                      '        ${this.TemaAula}         ',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
@@ -167,7 +213,7 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Sala 1         ',
+                    'Sala ${this.sala}         ',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ],
@@ -183,15 +229,13 @@ class EventCard extends StatelessWidget {
                     'Instrutor:',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
-                  Text('lucas de souza dos santos'),
+                  Text(this.instrutor),
                   SizedBox(height: 8),
                   Text(
                     'Local:',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
-                  Text(
-                    'Coletivo Aprendiz São Paulo - Rua José Bonifácio, 250 - 6º andar - Centro, São Paulo - SP',
-                  ),
+                  Text(this.local),
                   SizedBox(height: 10),
                 ],
               ),
@@ -207,11 +251,11 @@ class EventCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    ' Data: 15/03/2025',
+                    ' Data: ${this.data}',
                     style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
                   Text(
-                    'Inicio: 08:00   ',
+                    'Inicio: ${this.hora}   ',
                     style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
                 ],
